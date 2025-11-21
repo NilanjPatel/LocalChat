@@ -148,17 +148,15 @@ const SettingsModal: React.FC<Props> = ({ isOpen, settings, onClose, onSave }) =
                         </ul>
                     </div>
 
-                    {process.env.NODE_ENV === 'development' && (
-                        <div className="debug-section">
-                            <button
-                                className="btn-secondary"
-                                onClick={() => Logger.downloadLogs()}
-                            >
+                    <div className="debug-section">
+                        <button
+                            className="btn-secondary"
+                            onClick={() => Logger.downloadLogs()}
+                        >
                                 📥 Download Debug Logs
                             </button>
-                            <small>Available in development mode</small>
+                            <small>Export logs for debugging</small>
                         </div>
-                    )}
                 </div>
 
                 {/* Footer */}

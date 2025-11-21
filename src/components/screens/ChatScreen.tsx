@@ -251,7 +251,7 @@ const ChatScreen: React.FC<Props> = ({
      * Filter conversations based on search
      */
     const filteredConversations = localState.conversations.filter((conv) =>
-        conv.other_username.toLowerCase().includes(localState.searchQuery.toLowerCase())
+        conv.otherUsername.toLowerCase().includes(localState.searchQuery.toLowerCase())
     );
 
     return (
@@ -325,8 +325,8 @@ const ChatScreen: React.FC<Props> = ({
                             otherUserId={appState.currentChatUserId}
                             otherUsername={
                                 localState.conversations.find(
-                                    (c) => c.other_user_id === appState.currentChatUserId
-                                )?.other_username || 'User'
+                                    (c) => c.otherUserId === appState.currentChatUserId
+                                )?.otherUsername || 'User'
                             }
                             onSendMessage={handleSendMessage}
                             onDeleteConversation={handleDeleteConversation}

@@ -64,33 +64,33 @@ const ConversationsList: React.FC<Props> = ({
         <div className="conversations-list">
             {conversations.map((conversation) => (
                 <div
-                    key={conversation.other_user_id}
+                    key={conversation.otherUserId}
                     className={`conversation-item ${
-                        selectedUserId === conversation.other_user_id ? 'active' : ''
+                        selectedUserId === conversation.otherUserId ? 'active' : ''
                     }`}
-                    onClick={() => handleConversationClick(conversation.other_user_id)}
+                    onClick={() => handleConversationClick(conversation.otherUserId)}
                     role="button"
                     tabIndex={0}
                 >
                     <div className="conversation-avatar">
-                        {conversation.other_username[0].toUpperCase()}
+                        {conversation.otherUsername[0].toUpperCase()}
                     </div>
 
                     <div className="conversation-content">
                         <div className="conversation-header">
-                            <h4 className="conversation-name">{conversation.other_username}</h4>
+                            <h4 className="conversation-name">{conversation.otherUsername}</h4>
                             <span className="conversation-time">
-                {formatTime(conversation.last_message_at)}
+                {formatTime(conversation.lastMessageAt)}
               </span>
                         </div>
                         <p className="conversation-meta">
-                            {conversation.message_count} messages
+                            {conversation.messageCount} messages
                         </p>
                     </div>
 
-                    {conversation.unread_count > 0 && (
+                    {conversation.unreadCount > 0 && (
                         <div className="unread-badge">
-                            {conversation.unread_count}
+                            {conversation.unreadCount}
                         </div>
                     )}
                 </div>

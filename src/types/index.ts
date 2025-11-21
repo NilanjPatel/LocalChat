@@ -90,6 +90,7 @@ export interface SocketEvents {
     'conversation_deleted': (data: { conversationId: string }) => void;
     'error': (data: { message: string }) => void;
     'login_success': (data: LoginResponse) => void;
+    'connection-changed': (isConnected: boolean) => void;
 }
 
 // ============== SETTINGS ==============
@@ -111,9 +112,9 @@ export const DEFAULT_SETTINGS: AppSettings = {
 
 // ============== NOTIFICATION ==============
 export interface NotificationData {
-    userId: number;
-    username: string;
-    message?: string;
+    senderId: number;
+    senderUsername: string;
+    messageContent?: string;
 }
 
 // ============== API RESPONSES ==============

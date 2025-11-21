@@ -9,8 +9,6 @@ import {
     OnlineUser,
     Conversation,
     Message,
-    AppSettings,
-    DEFAULT_SETTINGS,
     ScreenType,
     UIState
 } from '../types';

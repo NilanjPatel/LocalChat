@@ -22,7 +22,7 @@ chrome.action.onClicked.addListener(() => {
 });
 
 // Message listener for cross-extension communication
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     console.log('Background received message:', message);
 
     if (message.type === 'PING') {
