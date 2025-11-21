@@ -214,9 +214,9 @@ const ChatApp: React.FC<Props> = () => {
             if (localState.settings) {
                 NotificationService.notifyMessageReceived(
                     {
-                        userId: message.senderId,
-                        username: 'User', // Will update with actual username
-                        message: message.content
+                        senderId: message.senderId,
+                        senderUsername: 'User', // Will update with actual username
+                        messageContent: message.content
                     },
                     localState.settings
                 );
