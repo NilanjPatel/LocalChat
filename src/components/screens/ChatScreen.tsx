@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import Logger from '../../utils/Logger';
+import Logger from '../../services/Logger';
 import NotificationService from '../../services/NotificationService';
 import StateManager from '../../services/StateManager';
 import { socketIOService } from '../../services/SocketIOService';

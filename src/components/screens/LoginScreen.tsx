@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import Logger from '../../utils/Logger';
+import Logger from '../../services/Logger';
 import '../styles/login-screen.css';
 
 interface Props {

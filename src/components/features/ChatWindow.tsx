@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import Logger from '../../utils/Logger';
+import Logger from '../../services/Logger';
 import { Message, AppSettings } from '../../types';
 import '../styles/chat-window.css';
 

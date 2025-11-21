@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback } from 'react';
-import Logger from '../../utils/Logger';
+import Logger from '../../services/Logger';
 import { Conversation } from '../../types';
 import '../styles/conversations-list.css';
 

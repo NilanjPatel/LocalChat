@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import Logger from '../../utils/Logger';
+import Logger from '../../services/Logger';
 import { AppSettings } from '../../types';
 import '../styles/settings-modal.css';
 

@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState, useCallback } from 'react';
-import Logger from '../utils/Logger';
+import Logger from '../services/Logger';
 import StorageService from '../services/StorageService';
 import NotificationService from '../services/NotificationService';
 import StateManager from '../services/StateManager';
