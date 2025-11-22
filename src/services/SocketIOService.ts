@@ -3,6 +3,7 @@
  * Handles real-time communication with the server
  */
 
+import { io, Socket } from 'socket.io-client';
 import Logger from './Logger';
 import {
     LoginResponse,
@@ -13,7 +14,7 @@ type EventCallback<K extends keyof SocketEvents> = SocketEvents[K];
 
 class SocketIOService {
     private readonly module = 'SocketIOService';
-    private socket: any = null;
+    private socket: Socket | null = null;
     private isConnected = false;
     private eventListeners: Map<string, Set<Function>> = new Map();
     private serverAddress: string | null = null;
@@ -27,36 +28,8 @@ class SocketIOService {
     async initialize(serverAddress: string): Promise<void> {
         Logger.info(this.module, 'Initializing Socket.IO connection', { serverAddress });
 
-        // Load Socket.IO library
-        if (typeof (window as any).io === 'undefined') {
-            Logger.debug(this.module, 'Loading Socket.IO library');
-            await this.loadSocketIOLibrary();
-        }
-
         this.serverAddress = serverAddress;
         this.createConnection();
-    }
-
-    /**
-     * Load Socket.IO library dynamically
-     */
-    private loadSocketIOLibrary(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = 'https://cdn.socket.io/4.5.4/socket.io.min.js';
-
-            script.onload = () => {
-                Logger.debug(this.module, 'Socket.IO library loaded successfully');
-                resolve();
-            };
-
-            script.onerror = () => {
-                Logger.error(this.module, 'Failed to load Socket.IO library');
-                reject(new Error('Failed to load Socket.IO library'));
-            };
-
-            document.head.appendChild(script);
-        });
     }
 
     /**
@@ -69,14 +42,13 @@ class SocketIOService {
         }
 
         try {
-            const io = (window as any).io;
-
             this.socket = io(this.serverAddress, {
                 reconnection: true,
                 reconnectionDelay: this.reconnectDelay,
                 reconnectionDelayMax: 5000,
                 reconnectionAttempts: this.maxReconnectAttempts,
-                path: '/socket.io/'
+                path: '/socket.io/',
+                transports: ['websocket', 'polling']
             });
 
             this.setupEventHandlers();
