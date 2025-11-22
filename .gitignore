@@ -28,4 +28,8 @@ yarn-debug.log*
 yarn-error.log*
 
 dist
+<<<<<<< HEAD
 *.zip
+=======
+*.zip
+>>>>>>> eb87b4c1 (update from mac)
