@@ -3,8 +3,8 @@
  * Root component that orchestrates all services and UI components
  */
 
-import React, { useEffect, useState, useCallback } from 'react';
-import Logger from '../utils/Logger';
+import React, { useEffect, useState } from 'react';
+import Logger from '../services/Logger';
 import StorageService from '../services/StorageService';
 import NotificationService from '../services/NotificationService';
 import StateManager from '../services/StateManager';
@@ -78,9 +78,9 @@ const ChatApp: React.FC<Props> = () => {
             logger.info(module, 'Settings loaded');
 
             // Check if user is logged in
-            const isLoggedIn = await StorageService.isLoggedIn();
+            const hasSavedCredentials = await StorageService.hasSavedCredentials();
 
-            if (isLoggedIn) {
+            if (hasSavedCredentials) {
                 logger.info(module, 'User is logged in, reconnecting...');
                 await reconnectUser();
             } else {
@@ -104,26 +104,26 @@ const ChatApp: React.FC<Props> = () => {
      */
     const reconnectUser = async (): Promise<void> => {
         try {
-            const data = await StorageService.get(['username', 'serverAddress', 'userId']);
+            const credentials = await StorageService.getCredentials();
 
-            if (!data.username || !data.serverAddress) {
+            if (!credentials.username || !credentials.serverAddress) {
                 logger.warn(module, 'Missing connection data');
                 StateManager.setUIScreen(ScreenType.LOGIN);
                 return;
             }
 
-            logger.info(module, 'Reconnecting user', { username: data.username });
+            logger.info(module, 'Reconnecting user', { username: credentials.username });
 
             // Update state
-            StateManager.setUsername(data.username);
-            StateManager.setServerAddress(data.serverAddress);
+            StateManager.setUsername(credentials.username);
+            StateManager.setServerAddress(credentials.serverAddress);
             StateManager.setIsLoading(true);
 
             // Initialize socket connection
-            await socketIOService.initialize(data.serverAddress);
+            await socketIOService.initialize(credentials.serverAddress);
 
             // Login
-            const response = await socketIOService.login(data.username);
+            const response = await socketIOService.login(credentials.username);
             handleLoginSuccess(response);
 
             // Setup socket listeners
@@ -155,8 +155,7 @@ const ChatApp: React.FC<Props> = () => {
             handleLoginSuccess(response);
 
             // Save credentials
-            await StorageService.saveCredentials(username, serverAddress);
-            await StorageService.saveUserId(response.userId);
+            await StorageService.saveCredentials(response.userId, username, serverAddress);
 
             // Setup listeners
             setupSocketListeners();
@@ -215,9 +214,9 @@ const ChatApp: React.FC<Props> = () => {
             if (localState.settings) {
                 NotificationService.notifyMessageReceived(
                     {
-                        userId: message.senderId,
-                        username: 'User', // Will update with actual username
-                        message: message.content
+                        senderId: message.senderId,
+                        senderUsername: 'User', // Will update with actual username
+                        messageContent: message.content
                     },
                     localState.settings
                 );

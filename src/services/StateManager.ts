@@ -3,14 +3,12 @@
  * Manages application state with event emitter pattern
  */
 
-import Logger from '../utils/Logger';
+import Logger from './Logger';
 import {
     ApplicationState,
     OnlineUser,
     Conversation,
     Message,
-    AppSettings,
-    DEFAULT_SETTINGS,
     ScreenType,
     UIState
 } from '../types';

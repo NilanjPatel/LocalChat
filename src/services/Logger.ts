@@ -25,7 +25,8 @@ class Logger {
     private maxLogs: number = 500;
 
     private constructor() {
-        this.isDevelopment = process.env.NODE_ENV === 'development';
+        // In browser extensions, always enable development logging
+        this.isDevelopment = true;
     }
 
     public static getInstance(): Logger {

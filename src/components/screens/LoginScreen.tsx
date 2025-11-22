@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import Logger from '../../utils/Logger';
+import Logger from '../../services/Logger';
 import '../styles/login-screen.css';
 
 interface Props {
@@ -237,14 +237,6 @@ const LoginScreen: React.FC<Props> = ({ onLogin, isLoading }) => {
                 </div>
             </div>
 
-            {/* Debug Info */}
-            {process.env.NODE_ENV === 'development' && (
-                <div className="debug-info">
-                    <button onClick={() => Logger.downloadLogs()}>
-                        Download Logs
-                    </button>
-                </div>
-            )}
         </div>
     );
 };

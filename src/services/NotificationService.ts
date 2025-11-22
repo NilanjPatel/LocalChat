@@ -3,7 +3,7 @@
  * Handles desktop notifications, notification sounds, and badge updates
  */
 
-import Logger from '../utils/Logger';
+import Logger from './Logger';
 import { NotificationData, AppSettings } from '../types';
 
 class NotificationService {
